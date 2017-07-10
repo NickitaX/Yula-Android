@@ -3,6 +3,15 @@
 
     <item
         is-multidex="false"
+        jar="/Users/admin/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.8.1/4d060ca3190df0eda4dc13415532a12e15ca5f11/okhttp-3.8.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4d060ca3190df0eda4dc13415532a12e15ca5f11">
+        <dex dex="/Users/admin/Documents/GitHub/Yula-Android/app/build/intermediates/pre-dexed/debug/okhttp-3.8.1_01b568c1685de656e5741148a0738d7931367f00.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/admin/.android/build-cache/d5e9497c1eb1d8853bcd36beeea27d12098fac1d/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
@@ -21,24 +30,6 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/admin/.android/build-cache/d51b8b2d4ee749257ff6ec35247df5cc009769ad/output/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="914f5d3e3ace66080e59613708f06d129a222e25">
-        <dex dex="/Users/admin/Documents/GitHub/Yula-Android/app/build/intermediates/pre-dexed/debug/classes_05df34c399add7bfd3bbeec02477bfccac9debc4.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/admin/.android/build-cache/1b6fc8b63f1be179d0a5e40b5789e5730e6dc413/output/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d08bb32b88df3dbcbe1d498c3c57f020b8c521ec">
-        <dex dex="/Users/admin/Documents/GitHub/Yula-Android/app/build/intermediates/pre-dexed/debug/classes_68a1ddcff2033955198ce72c06d6b00f44a22b2c.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/admin/.android/build-cache/be19e4e6bd58ce6a6675b780d5309ebef53fdb3a/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
@@ -54,6 +45,33 @@
         revision="25.0.2"
         sha1="bd75f9f0296fe220da6d0ad961831b04541c4452">
         <dex dex="/Users/admin/Documents/GitHub/Yula-Android/app/build/intermediates/pre-dexed/debug/classes_efe5ac27d074d8100ca32fbc5a5992bec248d6df.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/admin/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="/Users/admin/Documents/GitHub/Yula-Android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_ae5c9691caa62546c2e68e12d17e50d14c327db5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/admin/.android/build-cache/d51b8b2d4ee749257ff6ec35247df5cc009769ad/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="914f5d3e3ace66080e59613708f06d129a222e25">
+        <dex dex="/Users/admin/Documents/GitHub/Yula-Android/app/build/intermediates/pre-dexed/debug/classes_05df34c399add7bfd3bbeec02477bfccac9debc4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/admin/.android/build-cache/1b6fc8b63f1be179d0a5e40b5789e5730e6dc413/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d08bb32b88df3dbcbe1d498c3c57f020b8c521ec">
+        <dex dex="/Users/admin/Documents/GitHub/Yula-Android/app/build/intermediates/pre-dexed/debug/classes_68a1ddcff2033955198ce72c06d6b00f44a22b2c.jar" />
     </item>
 
 </items>

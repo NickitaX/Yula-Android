@@ -15,7 +15,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import java.io.IOException;
+
+import nickita.gq.yula.callbacks.OnReadyCallback;
 import nickita.gq.yula.fragments.MapFragment;
+import nickita.gq.yula.networking.HTTPCore;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,9 +41,20 @@ public class MainActivity extends AppCompatActivity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(final View view) {
+                try {
+                   HTTPCore.GET("https://yula-app.herokuapp.com/api/test/user_count", new OnReadyCallback() {
+                       @Override
+                       public void onReady(String response) {
+                           Snackbar.make(view, response, Snackbar.LENGTH_LONG)
+                                   .setAction("Action", null).show();
+                       }
+                   });
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
