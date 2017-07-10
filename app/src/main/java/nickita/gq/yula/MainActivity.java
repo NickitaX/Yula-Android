@@ -13,14 +13,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
+
+import nickita.gq.yula.fragments.MapFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startActivity(new Intent(this, LoginActivity.class));
         setContentView(R.layout.activity_main);
+        initialize();
+        setUpFragments();
+    }
+
+    private void setUpFragments(){
+        getFragmentManager().beginTransaction().replace(R.id.main_container, new MapFragment(), "MapFragment").commit();
+    }
+
+    private void initialize(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
