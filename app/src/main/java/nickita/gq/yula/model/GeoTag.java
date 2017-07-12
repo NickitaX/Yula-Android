@@ -1,5 +1,7 @@
 package nickita.gq.yula.model;
 
+import java.lang.reflect.Array;
+
 /**
  * Created by admin on 10/7/17.
  */
@@ -10,10 +12,10 @@ public class GeoTag {
     private double lng;
     private String tagid;
     private String description;
-    private boolean status;
+    private String status;
     private String date;
 
-    public GeoTag(String userid, double lat, double lng, String tagid, String description, boolean status, String date) {
+    public GeoTag(String userid, double lat, double lng, String tagid, String description, String status, String date) {
         this.userid = userid;
         this.lat = lat;
         this.lng = lng;
@@ -63,11 +65,11 @@ public class GeoTag {
         this.description = description;
     }
 
-    public boolean getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

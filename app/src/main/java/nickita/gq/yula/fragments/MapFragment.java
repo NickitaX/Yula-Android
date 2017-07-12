@@ -1,6 +1,7 @@
 package nickita.gq.yula.fragments;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -30,8 +31,22 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
+import com.squareup.moshi.Types;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.LinkedList;
+import java.util.List;
 
 import nickita.gq.yula.R;
+import nickita.gq.yula.callbacks.OnReadyCallback;
+import nickita.gq.yula.model.GeoTag;
+import nickita.gq.yula.networking.HTTPCore;
+import nickita.gq.yula.values.APIValues;
 
 /**
  * Created by admin on 10/7/17.
@@ -42,9 +57,47 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
     private GoogleMap mGoogleMap;
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
+    private List<GeoTag> mTagList;
+
 
     public Location getLastLocation(){
         return mLastLocation;
+    }
+
+    public void loadGeotags(){
+        mGoogleMap.clear();
+        mTagList = new LinkedList<>();
+        try {
+            HTTPCore.GET(APIValues.GET_ALL_TAGS, new OnReadyCallback() {
+                @Override
+                public void onReady(String response) {
+                    Moshi moshi = new Moshi.Builder().build();
+                    Type type = Types.newParameterizedType(List.class, GeoTag.class);
+                    JsonAdapter<List<GeoTag>> adapter = moshi.adapter(type);
+                    try {
+                        mTagList = adapter.fromJson(response);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    placeTagsOnMap();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void placeTagsOnMap(){
+        for(final GeoTag tag:mTagList){
+           final LatLng latLng = new LatLng(tag.getLat(), tag.getLng());
+            ((Activity)mView.getContext()).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mGoogleMap.addMarker(new MarkerOptions().position(latLng).title(tag.getDescription()));
+                }
+            });
+        }
+
     }
 
     @Nullable
@@ -151,6 +204,7 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
         }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
+        loadGeotags();
     }
 
 

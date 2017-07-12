@@ -25,6 +25,7 @@ import nickita.gq.yula.model.GeoTag;
 import nickita.gq.yula.networking.HTTPCore;
 import nickita.gq.yula.utils.APIFactory;
 import nickita.gq.yula.utils.CustomPopup;
+import nickita.gq.yula.utils.FragmentBroker;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -83,7 +84,8 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_refresh) {
+            ((MapFragment)FragmentBroker.getFragmentByTag(this, R.id.main_container)).loadGeotags();
             return true;
         }
         return super.onOptionsItemSelected(item);

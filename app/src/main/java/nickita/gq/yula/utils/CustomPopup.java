@@ -2,19 +2,12 @@ package nickita.gq.yula.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.location.Location;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 
 import java.io.IOException;
@@ -26,8 +19,6 @@ import nickita.gq.yula.callbacks.OnReadyCallback;
 import nickita.gq.yula.fragments.MapFragment;
 import nickita.gq.yula.model.GeoTag;
 import nickita.gq.yula.networking.HTTPCore;
-
-import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 /**
  * Created by admin on 12/7/17.
@@ -48,14 +39,14 @@ public class CustomPopup {
                 );
                 progressBar.setVisibility(View.VISIBLE);
                 try {
-                    MapFragment mapFragment = (MapFragment) FragmentBroker.getFragmentById(view.getContext(),R.id.main_container);
+                    MapFragment mapFragment = (MapFragment) FragmentBroker.getFragmentByTag(view.getContext(),R.id.main_container);
                     String tagId = UUID.randomUUID().toString();
                     String tagDescription = descriptionEditText.getText().toString();
                     Location userLocation = mapFragment.getLastLocation();
                     double lat = userLocation.getLatitude();
                     double lng = userLocation.getLongitude();
                     Date datePosted = new Date();
-                    HTTPCore.GET(APIFactory.assembleAddGeoTagRequest(new GeoTag("id123", lat, lng, tagId, tagDescription, true, datePosted.toString())), new OnReadyCallback() {
+                    HTTPCore.GET(APIFactory.assembleAddGeoTagRequest(new GeoTag("id123", lat, lng, tagId, tagDescription, "active", datePosted.toString())), new OnReadyCallback() {
                         @Override
                         public void onReady(String response) {
                             ((Activity)view.getContext()).runOnUiThread(new Runnable() {
