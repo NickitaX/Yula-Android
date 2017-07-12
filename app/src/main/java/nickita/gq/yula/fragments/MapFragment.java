@@ -43,6 +43,10 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
 
+    public Location getLastLocation(){
+        return mLastLocation;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {

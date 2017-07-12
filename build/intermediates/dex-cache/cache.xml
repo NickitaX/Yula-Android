@@ -73,5 +73,14 @@
         sha1="d08bb32b88df3dbcbe1d498c3c57f020b8c521ec">
         <dex dex="/Users/admin/Documents/GitHub/Yula-Android/app/build/intermediates/pre-dexed/debug/classes_68a1ddcff2033955198ce72c06d6b00f44a22b2c.jar" />
     </item>
+    <item
+        is-multidex="false"
+        jar="/Users/admin/.gradle/caches/modules-2/files-2.1/org.greenrobot/eventbus/3.0.0/ddd99896e9569eaababbe81b35d80e1b91c4ad85/eventbus-3.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ddd99896e9569eaababbe81b35d80e1b91c4ad85">
+        <dex dex="/Users/admin/Documents/GitHub/Yula-Android/app/build/intermediates/pre-dexed/debug/eventbus-3.0.0_27f37ed28208c616db8609e65503359cdcc1fa61.jar" />
+    </item>
 
 </items>

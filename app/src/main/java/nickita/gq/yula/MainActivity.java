@@ -2,6 +2,7 @@ package nickita.gq.yula;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -14,12 +15,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import java.io.IOException;
 
 import nickita.gq.yula.callbacks.OnReadyCallback;
 import nickita.gq.yula.fragments.MapFragment;
+import nickita.gq.yula.model.GeoTag;
 import nickita.gq.yula.networking.HTTPCore;
+import nickita.gq.yula.utils.APIFactory;
+import nickita.gq.yula.utils.CustomPopup;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,19 +47,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                try {
-                   HTTPCore.GET("https://yula-app.herokuapp.com/api/test/user_count", new OnReadyCallback() {
-                       @Override
-                       public void onReady(String response) {
-                           Snackbar.make(view, response, Snackbar.LENGTH_LONG)
-                                   .setAction("Action", null).show();
-                       }
-                   });
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
+                CustomPopup.showAddTagPopup(view);
             }
         });
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

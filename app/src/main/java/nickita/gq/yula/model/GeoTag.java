@@ -6,14 +6,14 @@ package nickita.gq.yula.model;
 public class GeoTag {
 
     private String userid;
-    private long lat;
-    private long lng;
+    private double lat;
+    private double lng;
     private String tagid;
     private String description;
     private boolean status;
     private String date;
 
-    public GeoTag(String userid, long lat, long lng, String tagid, String description, boolean status, String date) {
+    public GeoTag(String userid, double lat, double lng, String tagid, String description, boolean status, String date) {
         this.userid = userid;
         this.lat = lat;
         this.lng = lng;
@@ -31,7 +31,7 @@ public class GeoTag {
         this.userid = userid;
     }
 
-    public long getLat() {
+    public double getLat() {
         return lat;
     }
 
@@ -39,7 +39,7 @@ public class GeoTag {
         this.lat = lat;
     }
 
-    public long getLng() {
+    public double getLng() {
         return lng;
     }
 

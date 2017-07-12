@@ -5,6 +5,6 @@ package nickita.gq.yula.values;
  */
 public class APIValues {
     public final static String SERVER_ADDRESS = "https://yula-app.herokuapp.com";
-    public final static String ADD_GEO_TAG = SERVER_ADDRESS+"/api/add_location";
+    public final static String ADD_GEO_TAG = SERVER_ADDRESS+"/api/add_tag";
     public final static String NUMBER_OF_USERS = SERVER_ADDRESS+"/api/test/user_count";
 }

@@ -9,12 +9,12 @@ import nickita.gq.yula.values.APIValues;
 public class APIFactory {
     public static String assembleAddGeoTagRequest(GeoTag tag){
     return APIValues.ADD_GEO_TAG+"?"
-            +"userid="+tag.getUserid()+"&"
+            +"user_id="+tag.getUserid()+"&"
             +"lat="+tag.getLat()+"&"
             +"lng="+tag.getLng()+"&"
-            +"tagid="+tag.getTagid()+"&"
-            +"description="+tag.getDescription()+"&"
-            +"status="+tag.getStatus()+"&"
-            +"date="+tag.getDate();
+            +"tag_id="+tag.getTagid()+"&"
+            +"tag_description="+tag.getDescription()+"&"
+            +"tag_status="+tag.getStatus()+"&"
+            +"tag_date="+tag.getDate();
     }
 }
