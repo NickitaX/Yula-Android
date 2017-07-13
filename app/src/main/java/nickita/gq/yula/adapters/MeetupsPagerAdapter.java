@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -37,10 +38,13 @@ public class MeetupsPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+        GeoTag currentTag = mTags.get(position);
         LayoutInflater inflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View itemView = inflater.inflate(R.layout.meetup_item_layout, container,
                 false);
+        TextView meetupDescription = (TextView) itemView.findViewById(R.id.meetup_description);
+        meetupDescription.setText(currentTag.getDescription());
         container.addView(itemView);
         return itemView;
     }

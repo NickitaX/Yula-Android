@@ -31,10 +31,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="10dp"
-                    android:text="Marcus, 23"
+                    android:text="Nickita, 25"
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/meetup_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"

@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,6 +24,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
@@ -55,19 +57,20 @@ import nickita.gq.yula.values.APIValues;
 /**
  * Created by admin on 10/7/17.
  */
-public class MapFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
+public class MapFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks{
     private View mView;
     private MapView mMapView;
     private GoogleMap mGoogleMap;
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private List<GeoTag> mTagList;
+    private LocationRequest locationRequest;
 
-    public Location getLastLocation(){
+    public Location getLastLocation() {
         return mLastLocation;
     }
 
-    public void loadGeotags(){
+    public void loadGeotags() {
         mGoogleMap.clear();
         mTagList = new LinkedList<>();
         TagsManager.pullGeoTagsFromServer(new OnTagsPulledCallback() {
@@ -79,37 +82,36 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
         });
     }
 
-    private GeoTag getTagById(String id){
-        for(GeoTag tag:mTagList){
-            if(tag.getTagid().equals(id)){
+    private GeoTag getTagById(String id) {
+        for (GeoTag tag : mTagList) {
+            if (tag.getTagid().equals(id)) {
                 return tag;
             }
         }
         return null;
     }
 
-    public void navigateToTagWithId(String id){
+    public void navigateToTagWithId(String id) {
         GeoTag found = getTagById(id);
-        if(found!=null){
+        if (found != null) {
             navigateSmoothOnMap(new LatLng(found.getLat(), found.getLng()));
         }
     }
 
-    private void placeTagsOnMap(){
-        for(final GeoTag tag:mTagList){
-           final LatLng latLng = new LatLng(tag.getLat(), tag.getLng());
-            ((Activity)mView.getContext()).runOnUiThread(new Runnable() {
+    private void placeTagsOnMap() {
+        for (final GeoTag tag : mTagList) {
+            final LatLng latLng = new LatLng(tag.getLat(), tag.getLng());
+            ((Activity) mView.getContext()).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     mGoogleMap.addMarker(new MarkerOptions().position(latLng).title(tag.getDescription()));
                 }
             });
         }
-
     }
 
     private void navigateSmoothOnMap(LatLng target) {
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(target).zoom(15).build();
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(target).zoom(35).build();
         mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
@@ -170,7 +172,7 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this).build();
         mGoogleApiClient.connect();
-        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(30 * 1000);
         locationRequest.setFastestInterval(5 * 1000);
@@ -220,7 +222,6 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
         loadGeotags();
     }
 
-
     private void setUpLocationListener() {
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(mView.getContext())
@@ -229,7 +230,28 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
                     .addApi(LocationServices.API)
                     .build();
             mGoogleApiClient.connect();
+        }else{
+            setFusedLocationListener();
         }
+    }
+
+    private void setFusedLocationListener(){
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, new com.google.android.gms.location.LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                if (ActivityCompat.checkSelfPermission(mView.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mView.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                mLastLocation = location;
+            }
+        });
     }
 
     @Override
