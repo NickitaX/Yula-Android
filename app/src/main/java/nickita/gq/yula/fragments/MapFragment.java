@@ -217,6 +217,7 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
         if (mGoogleApiClient == null) {
             return;
         }
+        setFusedLocationListener();
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         loadGeotags();
@@ -230,12 +231,13 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
                     .addApi(LocationServices.API)
                     .build();
             mGoogleApiClient.connect();
-        }else{
-            setFusedLocationListener();
         }
     }
 
     private void setFusedLocationListener(){
+        if(!mGoogleApiClient.isConnected()){
+            return;
+        }
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, new com.google.android.gms.location.LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
