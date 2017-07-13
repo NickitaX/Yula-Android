@@ -218,8 +218,6 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
             return;
         }
         setFusedLocationListener();
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
         loadGeotags();
     }
 

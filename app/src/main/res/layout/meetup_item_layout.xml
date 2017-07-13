@@ -11,6 +11,7 @@
         android:layout_height="150dp">
 
         <LinearLayout
+            android:weightSum="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
@@ -19,10 +20,11 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_margin="15dp"
-                android:src="@color/colorPrimary"
+                android:src="@drawable/temp"
                 app:riv_corner_radius="60dip" />
 
             <LinearLayout
+                android:layout_weight="0.9"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -42,6 +44,21 @@
                     android:text="Looking to drink a cup of coffee with somebody who likes RNB"
                     android:textSize="15sp" />
 
+            </LinearLayout>
+            <LinearLayout
+                android:layout_weight="0.1"
+                android:background="#00b700"
+                android:layout_width="50dp"
+                android:gravity="center"
+                android:layout_height="match_parent">
+            <TextView
+                android:rotation="-90"
+                android:text="CALL"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
 
