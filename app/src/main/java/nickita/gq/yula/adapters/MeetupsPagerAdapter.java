@@ -29,6 +29,8 @@ public class MeetupsPagerAdapter extends PagerAdapter {
         mTags = tags;
     }
 
+
+
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == object;    }

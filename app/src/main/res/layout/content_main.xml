@@ -17,14 +17,13 @@
         android:orientation="vertical">
 
         <FrameLayout
-            android:layout_weight="0.3"
+            android:layout_weight="0.2"
             android:id="@+id/meetups_container"
             android:layout_width="match_parent"
             android:layout_height="150dp" />
 
         <FrameLayout
-            android:padding="5dp"
-            android:layout_weight="0.7"
+            android:layout_weight="0.8"
             android:id="@+id/main_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

@@ -28,9 +28,11 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.moshi.JsonAdapter;
@@ -77,6 +79,22 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
         });
     }
 
+    private GeoTag getTagById(String id){
+        for(GeoTag tag:mTagList){
+            if(tag.getTagid().equals(id)){
+                return tag;
+            }
+        }
+        return null;
+    }
+
+    public void navigateToTagWithId(String id){
+        GeoTag found = getTagById(id);
+        if(found!=null){
+            navigateSmoothOnMap(new LatLng(found.getLat(), found.getLng()));
+        }
+    }
+
     private void placeTagsOnMap(){
         for(final GeoTag tag:mTagList){
            final LatLng latLng = new LatLng(tag.getLat(), tag.getLng());
@@ -88,6 +106,11 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
             });
         }
 
+    }
+
+    private void navigateSmoothOnMap(LatLng target) {
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(target).zoom(15).build();
+        mGoogleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 
     @Nullable

@@ -17,6 +17,7 @@ import nickita.gq.yula.R;
 import nickita.gq.yula.adapters.MeetupsPagerAdapter;
 import nickita.gq.yula.callbacks.OnTagsPulledCallback;
 import nickita.gq.yula.model.GeoTag;
+import nickita.gq.yula.utils.FragmentBroker;
 import nickita.gq.yula.utils.TagsManager;
 
 /**
@@ -73,5 +74,20 @@ public class MeetupsFragment extends Fragment {
         MeetupsPagerAdapter adapter = new MeetupsPagerAdapter(mView.getContext(),mTags);
         viewPager.setAdapter(adapter);
         showProgress(false);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                ((MapFragment)FragmentBroker.getFragmentByTag(mView.getContext(), R.id.main_container))
+                        .navigateToTagWithId(mTags.get(position).getTagid());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
     }
 }
