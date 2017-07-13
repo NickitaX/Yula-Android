@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,15 +25,31 @@ import nickita.gq.yula.utils.TagsManager;
 public class MeetupsFragment extends Fragment {
     private View mView;
     private List<GeoTag> mTags;
+    private ProgressBar mProgressBar;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.meetup_fragment_layout, container, false);
+        initialize();
         loadTags();
         return mView;
     }
 
+    private void initialize(){
+        mProgressBar = (ProgressBar) mView.findViewById(R.id.meetups_progress);
+    }
+
+    private void showProgress(boolean state){
+        if(state){
+            mProgressBar.setVisibility(View.VISIBLE);
+        }else{
+            mProgressBar.setVisibility(View.GONE);
+        }
+    }
+
     private void loadTags(){
+        showProgress(true);
         TagsManager.pullGeoTagsFromServer(new OnTagsPulledCallback() {
             @Override
             public void pulled(List<GeoTag> tags) {
@@ -47,9 +64,14 @@ public class MeetupsFragment extends Fragment {
         });
     }
 
+    public void reloadMeetups(){
+        loadTags();
+    }
+
     private void setUpViewPager() {
         ViewPager viewPager = (ViewPager) mView.findViewById(R.id.meetup_pager);
         MeetupsPagerAdapter adapter = new MeetupsPagerAdapter(mView.getContext(),mTags);
         viewPager.setAdapter(adapter);
+        showProgress(false);
     }
 }

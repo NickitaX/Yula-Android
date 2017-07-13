@@ -88,6 +88,8 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_refresh) {
             ((MapFragment)FragmentBroker.getFragmentByTag(this, R.id.main_container)).loadGeotags();
+            ((MeetupsFragment)FragmentBroker.getFragmentByTag(this, R.id.meetups_container)).reloadMeetups();
+
             return true;
         }
         return super.onOptionsItemSelected(item);
