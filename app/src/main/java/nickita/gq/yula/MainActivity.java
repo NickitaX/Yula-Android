@@ -21,6 +21,7 @@ import java.io.IOException;
 
 import nickita.gq.yula.callbacks.OnReadyCallback;
 import nickita.gq.yula.fragments.MapFragment;
+import nickita.gq.yula.fragments.MeetupsFragment;
 import nickita.gq.yula.model.GeoTag;
 import nickita.gq.yula.networking.HTTPCore;
 import nickita.gq.yula.utils.APIFactory;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setUpFragments(){
+        getFragmentManager().beginTransaction().replace(R.id.meetups_container, new MeetupsFragment(), "MeetupsFragment").commit();
         getFragmentManager().beginTransaction().replace(R.id.main_container, new MapFragment(), "MapFragment").commit();
     }
 

@@ -44,8 +44,10 @@ import java.util.List;
 
 import nickita.gq.yula.R;
 import nickita.gq.yula.callbacks.OnReadyCallback;
+import nickita.gq.yula.callbacks.OnTagsPulledCallback;
 import nickita.gq.yula.model.GeoTag;
 import nickita.gq.yula.networking.HTTPCore;
+import nickita.gq.yula.utils.TagsManager;
 import nickita.gq.yula.values.APIValues;
 
 /**
@@ -59,7 +61,6 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
     private Location mLastLocation;
     private List<GeoTag> mTagList;
 
-
     public Location getLastLocation(){
         return mLastLocation;
     }
@@ -67,24 +68,13 @@ public class MapFragment extends Fragment implements GoogleApiClient.OnConnectio
     public void loadGeotags(){
         mGoogleMap.clear();
         mTagList = new LinkedList<>();
-        try {
-            HTTPCore.GET(APIValues.GET_ALL_TAGS, new OnReadyCallback() {
-                @Override
-                public void onReady(String response) {
-                    Moshi moshi = new Moshi.Builder().build();
-                    Type type = Types.newParameterizedType(List.class, GeoTag.class);
-                    JsonAdapter<List<GeoTag>> adapter = moshi.adapter(type);
-                    try {
-                        mTagList = adapter.fromJson(response);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    placeTagsOnMap();
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        TagsManager.pullGeoTagsFromServer(new OnTagsPulledCallback() {
+            @Override
+            public void pulled(List<GeoTag> tags) {
+                mTagList = tags;
+                placeTagsOnMap();
+            }
+        });
     }
 
     private void placeTagsOnMap(){
