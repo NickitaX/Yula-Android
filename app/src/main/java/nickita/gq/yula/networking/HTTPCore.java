@@ -17,6 +17,7 @@ public class HTTPCore {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Log.d("HTTPCore_GET:", url);
                 OkHttpClient client = new OkHttpClient();
                 String output = "EMPTY";
                 Request request = new Request.Builder()

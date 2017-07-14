@@ -1,9 +1,11 @@
 package nickita.gq.yula.model;
 
+import java.io.Serializable;
+
 /**
  * Created by admin on 14/7/17.
  */
-public class User {
+public class User implements Serializable {
     private String email, firstName, lastName, userID, rating, password;
 
     public User(String email, String firstName, String lastName, String userID, String rating, String password) {
