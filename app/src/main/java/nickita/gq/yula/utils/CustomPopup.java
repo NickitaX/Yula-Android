@@ -2,6 +2,7 @@ package nickita.gq.yula.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.location.Location;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -24,9 +25,18 @@ import nickita.gq.yula.networking.HTTPCore;
  * Created by admin on 12/7/17.
  */
 public class CustomPopup {
+
+    public static void showRegisterAccountPopup(final Context context){
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.popup_register_account_layout);
+        Button register = (Button) dialog.findViewById(R.id.register_account_button);
+        final ProgressBar progressBar = (ProgressBar) dialog.findViewById(R.id.register_account_progress);
+        dialog.show();
+    }
+
     public static void showAddTagPopup(final View view){
         final Dialog dialog = new Dialog(view.getContext());
-        dialog.setContentView(R.layout.add_tag_layout);
+        dialog.setContentView(R.layout.popup_add_tag_layout);
         Button submit = (Button) dialog.findViewById(R.id.submit_tag_button);
         final EditText descriptionEditText = (EditText) dialog.findViewById(R.id.description_edit_text);
         final ProgressBar progressBar = (ProgressBar) dialog.findViewById(R.id.add_tag_progress);

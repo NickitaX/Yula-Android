@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Login act work
+        startActivity(new Intent(this,LoginActivity.class));
+        //
         setContentView(R.layout.activity_main);
         initialize();
         setUpFragments();
