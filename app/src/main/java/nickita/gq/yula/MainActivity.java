@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                CustomPopup.showAddTagPopup(view);
+                CustomPopup.showAddTagPopup(view.getContext());
             }
         });
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
