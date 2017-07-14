@@ -3,6 +3,8 @@ package nickita.gq.yula;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,13 +18,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
+import com.squareup.moshi.Types;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
+
+import nickita.gq.yula.callbacks.OnReadyCallback;
+import nickita.gq.yula.model.GeoTag;
+import nickita.gq.yula.model.Login;
+import nickita.gq.yula.model.User;
+import nickita.gq.yula.networking.HTTPCore;
+import nickita.gq.yula.utils.APIFactory;
 import nickita.gq.yula.utils.CustomPopup;
+import nickita.gq.yula.utils.Storage;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity{
-
+public class LoginActivity extends AppCompatActivity {
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -67,6 +83,7 @@ public class LoginActivity extends AppCompatActivity{
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
+        final Context context = getApplicationContext();
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -99,11 +116,30 @@ public class LoginActivity extends AppCompatActivity{
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            //TODO: LOGIN LOGIC
+            Login login = new Login(mEmailView.getText().toString(), mPasswordView.getText().toString());
+            try {
+                HTTPCore.GET(APIFactory.assembleLoginRequest(login), new OnReadyCallback() {
+                    @Override
+                    public void onReady(String response) {
+                        Moshi moshi = new Moshi.Builder().build();
+                        Type type = Types.newParameterizedType(List.class, User.class);
+                        JsonAdapter<List<User>> adapter = moshi.adapter(type);
+                        try {
+                            User logged = adapter.fromJson(response).get(0);
+                            Storage.saveUserToMemory(context, logged);
+                            context.startActivity(new Intent(context, MainActivity.class));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private void setUpRegisterButton(){
+    private void setUpRegisterButton() {
         Button registerButton = (Button) findViewById(R.id.sign_up_button);
         registerButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -156,6 +192,5 @@ public class LoginActivity extends AppCompatActivity{
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
-
 }
 

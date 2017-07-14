@@ -27,26 +27,27 @@ import nickita.gq.yula.networking.HTTPCore;
 import nickita.gq.yula.utils.APIFactory;
 import nickita.gq.yula.utils.CustomPopup;
 import nickita.gq.yula.utils.FragmentBroker;
+import nickita.gq.yula.utils.Storage;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Login act work
-        startActivity(new Intent(this,LoginActivity.class));
-        //
+        if (Storage.readUserFromMemory(getApplicationContext()) == null) {
+            startActivity(new Intent(this, LoginActivity.class));
+        }
         setContentView(R.layout.activity_main);
         initialize();
         setUpFragments();
     }
 
-    private void setUpFragments(){
+    private void setUpFragments() {
         getFragmentManager().beginTransaction().replace(R.id.meetups_container, new MeetupsFragment(), "MeetupsFragment").commit();
         getFragmentManager().beginTransaction().replace(R.id.main_container, new MapFragment(), "MapFragment").commit();
     }
 
-    private void initialize(){
+    private void initialize() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -90,9 +91,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_refresh) {
-            ((MapFragment)FragmentBroker.getFragmentByTag(this, R.id.main_container)).loadGeotags();
-            ((MeetupsFragment)FragmentBroker.getFragmentByTag(this, R.id.meetups_container)).reloadMeetups();
-
+            ((MapFragment) FragmentBroker.getFragmentByTag(this, R.id.main_container)).loadGeotags();
+            ((MeetupsFragment) FragmentBroker.getFragmentByTag(this, R.id.meetups_container)).reloadMeetups();
             return true;
         }
         return super.onOptionsItemSelected(item);

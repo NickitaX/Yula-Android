@@ -1,6 +1,7 @@
 package nickita.gq.yula.utils;
 
 import nickita.gq.yula.model.GeoTag;
+import nickita.gq.yula.model.Login;
 import nickita.gq.yula.model.User;
 import nickita.gq.yula.values.APIValues;
 
@@ -28,5 +29,11 @@ public class APIFactory {
             +"tag_description="+tag.getDescription()+"&"
             +"tag_status="+tag.getStatus()+"&"
             +"tag_date="+tag.getDate();
+    }
+
+    public static String assembleLoginRequest(Login login){
+        return APIValues.LOGIN+"?"
+                +"user_email="+login.getEmail()+"&"
+                +"user_password="+login.getPassword();
     }
 }

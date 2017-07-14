@@ -28,6 +28,7 @@ import nickita.gq.yula.networking.HTTPCore;
  * Created by admin on 12/7/17.
  */
 public class CustomPopup {
+
     public static void showRegisterAccountPopup(final Context context) {
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.popup_register_account_layout);
@@ -43,7 +44,7 @@ public class CustomPopup {
                 register.setVisibility(View.GONE);
                 progressBar.setVisibility(View.VISIBLE);
                 try {
-                    User newUser = new User(emailEdit.getText().toString(), firstNameEdit.getText().toString(),
+                    final User newUser = new User(emailEdit.getText().toString(), firstNameEdit.getText().toString(),
                             lastNameEdit.getText().toString(), UUID.randomUUID().toString(),
                             "newbie", passwordEdit.getText().toString());
                     HTTPCore.GET(APIFactory.assembleAddUserRequest(newUser), new OnReadyCallback() {
@@ -55,6 +56,7 @@ public class CustomPopup {
                                 public void run() {
                                     if (response.equals("0")) {
                                         AlertBuilder.showSimpleAlert(context, "Account created!");
+                                        Storage.saveUserToMemory(context, newUser);
                                         context.startActivity(new Intent(context, MainActivity.class));
                                     } else {
                                         AlertBuilder.showSimpleAlert(context, "Error. Try again!");
