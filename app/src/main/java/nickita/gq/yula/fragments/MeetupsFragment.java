@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import nickita.gq.yula.R;
@@ -18,7 +17,7 @@ import nickita.gq.yula.adapters.MeetupsPagerAdapter;
 import nickita.gq.yula.callbacks.OnTagsPulledCallback;
 import nickita.gq.yula.model.GeoTag;
 import nickita.gq.yula.utils.FragmentBroker;
-import nickita.gq.yula.utils.TagsManager;
+import nickita.gq.yula.networking.TagsManager;
 
 /**
  * Created by admin on 13/7/17.

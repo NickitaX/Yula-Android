@@ -6,7 +6,6 @@ import android.app.Fragment;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,7 +23,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
@@ -37,22 +35,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Moshi;
-import com.squareup.moshi.Types;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
 
 import nickita.gq.yula.R;
-import nickita.gq.yula.callbacks.OnReadyCallback;
 import nickita.gq.yula.callbacks.OnTagsPulledCallback;
 import nickita.gq.yula.model.GeoTag;
-import nickita.gq.yula.networking.HTTPCore;
-import nickita.gq.yula.utils.TagsManager;
-import nickita.gq.yula.values.APIValues;
+import nickita.gq.yula.networking.TagsManager;
 
 /**
  * Created by admin on 10/7/17.

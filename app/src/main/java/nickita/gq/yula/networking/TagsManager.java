@@ -1,4 +1,4 @@
-package nickita.gq.yula.utils;
+package nickita.gq.yula.networking;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
